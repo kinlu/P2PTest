@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>my-app</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>my-app</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>io.selendroid</groupId>
+    	<artifactId>selendroid-standalone</artifactId>
+    	<version>0.10.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>io.selendroid</groupId>
+    	<artifactId>selendroid-client</artifactId>
+    	<version>0.10.0</version>
+    </dependency>
+
+		<dependency>
+			<groupId>com.paypal.test.bluefin</groupId>
+			<artifactId>Bluefin-Core</artifactId>
+			<version>0.8.2</version>
+		</dependency>
+
+		<!-- Dependency for ASFServiceTest. -->
+		<dependency>
+			<groupId>com.paypal.interfaces</groupId>
+			<artifactId>FIWalletLifecycle-interface</artifactId>
+			<version>1.112.9984485</version>
+		</dependency>
+		
+		<dependency>
+      		<groupId>com.paypal.selion</groupId>
+      		<artifactId>SeLion</artifactId>
+      		<version>1.0.0-SNAPSHOT</version>
+    	</dependency>
+		
+	</dependencies>
+  
+  	<repositories>
+		<repository>
+			<id>central</id>
+			<name>PayPal Central</name>
+			<url>
+				http://nexus.paypal.com/nexus/content/groups/public-all/
+			</url>
+		</repository>
+	</repositories>
+  
+</project>

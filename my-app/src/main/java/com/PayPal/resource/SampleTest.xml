@@ -1,0 +1,11 @@
+<suite thread-count="100" verbose="1" name="Parallel Test Suite"
+  skipfailedinvocationcounts="false" junit="false" parallel="tests"
+  data-provider-thread-count="50" annotations="JDK">
+
+  <test name="Parallel1">
+    <classes>
+      <class name="com.mycompany.app.P2PTest"/>
+    </classes>
+  </test>
+  
+</suite>
