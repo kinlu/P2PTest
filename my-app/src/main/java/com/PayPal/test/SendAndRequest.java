@@ -64,7 +64,6 @@ public class SendAndRequest {
 		
 		transfer.clickDone();
 		
-		
 	}
 	
 	@Before
