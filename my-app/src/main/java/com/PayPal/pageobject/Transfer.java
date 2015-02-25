@@ -11,14 +11,29 @@ import org.openqa.selenium.support.ui.Select;
 
 public class Transfer extends BasePage {
 	
-	@FindBy(id = "recipient")
-	private WebElement recipient;
+	@FindBy(xpath = "//NoSaveStateFrameLayout/RelativeLayout[@id!='payment_parent']" +
+			"/ScrollView/LinearLayout/RelativeLayout/RelativeLayout/RelativeLayout/AutoCompleteTextView")
+	private WebElement sendRecipient;
 	
-	@FindBy(id = "amount_edit")
-	private WebElement amount;
+	@FindBy(xpath = "//NoSaveStateFrameLayout/RelativeLayout[@id='payment_parent']" +
+			"/ScrollView/LinearLayout/RelativeLayout/RelativeLayout/RelativeLayout/AutoCompleteTextView")
+	private WebElement requestRecipient;
 	
-	@FindBy(id = "choose_currency")
-	private WebElement currency;
+	@FindBy(xpath = "//NoSaveStateFrameLayout/RelativeLayout[@id!='payment_parent']" +
+			"/ScrollView/LinearLayout/RelativeLayout/RelativeLayout/RelativeLayout/EditText")
+	private WebElement sendAmount;
+	
+	@FindBy(xpath = "//NoSaveStateFrameLayout/RelativeLayout[@id='payment_parent']" +
+			"/ScrollView/LinearLayout/RelativeLayout/RelativeLayout/RelativeLayout/EditText")
+	private WebElement requestAmount;
+	
+	@FindBy(xpath = "//NoSaveStateFrameLayout/RelativeLayout[@id!='payment_parent']" +
+			"/ScrollView/LinearLayout/RelativeLayout/RelativeLayout/LinearLayout/Spinner")
+	private WebElement sendCurrency;
+	
+	@FindBy(xpath = "//NoSaveStateFrameLayout/RelativeLayout[@id='payment_parent']" +
+			"/ScrollView/LinearLayout/RelativeLayout/RelativeLayout/LinearLayout/Spinner")
+	private WebElement requestCurrency;
 	
 	@FindBy(id = "payment_message_editable")
 	private WebElement message;
@@ -27,7 +42,7 @@ public class Transfer extends BasePage {
 	private WebElement reviewButton;
 	
 	@FindBy(id = "sending_amount")
-	private WebElement sendAmount;
+	private WebElement sendingAmount;
 	
 	@FindBy(id = "sending_fees")
 	private WebElement sendFees;
@@ -44,6 +59,18 @@ public class Transfer extends BasePage {
 	@FindBy(id = "done_button")
 	private WebElement doneButton;
 	
+	@FindBy(id = "home")
+	private WebElement buttonHome;	
+	
+	@FindBy(id = "money_send")
+	private WebElement sendMoney;
+	
+	@FindBy(id = "money_request")
+	private WebElement requestMoneyTab;
+	
+	@FindBy(id = "request_button")
+	private WebElement requestButton;
+	
 	private final WebDriver driver;
 	
 	public Transfer(WebDriver driver) {
@@ -52,7 +79,7 @@ public class Transfer extends BasePage {
 	}
 	
 	public String getSendAmount(){
-		return sendAmount.getText();
+		return sendingAmount.getText();
 	}
 	
 	public String getSendFee(){
@@ -67,24 +94,50 @@ public class Transfer extends BasePage {
 		return successMessage.getText();
 	}
 	
-	public Transfer inputRecipient(String rec){
-		recipient.sendKeys(rec);
+	public Transfer inputSendRecipient(String rec){
+		sendRecipient.sendKeys(rec);
 		
 		return this;
 	}
 
-	public Transfer inputAmount(String amnt){
-		amount.sendKeys(amnt);
+	public Transfer inputSendAmount(String amnt){
+		sendAmount.sendKeys(amnt);
 		
 		return this;
 	}
 	
-	public Transfer chooseCurrency(String cur){
-		currency.click();
+	public Transfer chooseSendCurrency(String cur){
+		sendCurrency.click();
 		
 		if(cur.equals("AUD")){
 			driver.findElement(By.xpath("//TextView[@value='AUD – Australian dollar']")).click();
-		}else if(cur.equals("GBP")){
+		}else if(cur.equals("EUR")){
+			driver.findElement(By.xpath("//TextView[@value='EUR – Euro']")).click();
+		}else if(cur.equals("HKD")){
+			driver.findElement(By.xpath("//TextView[@value='HKD – Hong Kong dollar']")).click();
+		}	
+		
+		return this;
+	}
+	
+	public Transfer inputRequestRecipient(String rec){
+		requestRecipient.sendKeys(rec);
+		
+		return this;
+	}
+
+	public Transfer inputRequestAmount(String amnt){
+		requestAmount.sendKeys(amnt);
+		
+		return this;
+	}
+	
+	public Transfer chooseRequestCurrency(String cur){
+		requestCurrency.click();
+		
+		if(cur.equals("AUD")){
+			driver.findElement(By.xpath("//TextView[@value='AUD – Australian dollar']")).click();
+		}else if(cur.equals("EUR")){
 			driver.findElement(By.xpath("//TextView[@value='EUR – Euro']")).click();
 		}else if(cur.equals("HKD")){
 			driver.findElement(By.xpath("//TextView[@value='HKD – Hong Kong dollar']")).click();
@@ -124,4 +177,28 @@ public class Transfer extends BasePage {
 		
 		return this;
 	}
+	
+	public Transfer clickRequestTab(){
+		
+		requestMoneyTab.click();
+		
+		return this;
+	}
+	
+	public Transfer clickRequestButton(){
+		
+		requestButton.click();
+		
+		return this;
+	}
+	
+	public NavigationBar<?> clickHomeButton() throws InterruptedException{
+		
+		waitElementClickable(buttonHome);
+		
+		buttonHome.click();
+		
+		return PageFactory.initElements(driver, NavigationBar.class);
+	}
+	
 }

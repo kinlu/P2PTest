@@ -63,7 +63,6 @@ public class LoginTest {
 	Assert.assertEquals("Lu", navBar.getLastName());
   }
 
-  @Test
   public void loginWithMobileNumber() throws InterruptedException {
 	shopPage = startPage.proceedLogin();
 	

@@ -58,6 +58,7 @@ public class NavigationBar<T extends BasePage> extends BasePage {
 		
 		case "activity":
 			buttonActivity.click();
+			return (T) PageFactory.initElements(driver, ActivityPage.class); 
 			
 		case "transfer":
 			buttonTransfer.click();

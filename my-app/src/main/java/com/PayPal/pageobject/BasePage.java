@@ -1,5 +1,7 @@
 package com.PayPal.pageobject;
 
+import io.selendroid.exceptions.StaleElementReferenceException;
+
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -70,6 +72,26 @@ public abstract class BasePage {
 		actions.up(p.x, p.y);
 		actions.perform();
 		
+	}
+	
+	public void StaleElementClick(WebElement element) throws InterruptedException{
+		int count = 0; 
+		while (count < 4){
+		    try {
+		    	element.click(); 
+				count = count+4;
+		     } catch (StaleElementReferenceException e){
+		       if (count<4){
+		    	   System.out.println("Trying to recover from a stale element.");
+			       Thread.sleep(1000);
+			       count = count+1;
+		       }else{
+		    	   System.out.println("Tried 4 times and still catching " + e.toString());
+		       }
+		       
+		     }
+
+		}
 	}
 }
  
