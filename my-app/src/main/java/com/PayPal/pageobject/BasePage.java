@@ -1,6 +1,6 @@
 package com.PayPal.pageobject;
 
-import io.selendroid.exceptions.StaleElementReferenceException;
+import org.openqa.selenium.StaleElementReferenceException;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
-	private final WebDriver driver;
+	protected final WebDriver driver;
 	
 	public BasePage(WebDriver driver){
 		this.driver = driver;
@@ -73,6 +73,7 @@ public abstract class BasePage {
 		actions.perform();
 		
 	}
+	
 	
 	public void StaleElementClick(WebElement element) throws InterruptedException{
 		int count = 0; 

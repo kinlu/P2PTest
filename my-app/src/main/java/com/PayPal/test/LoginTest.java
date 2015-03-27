@@ -1,6 +1,8 @@
 package com.PayPal.test;
 
 
+import java.util.List;
+
 import io.selendroid.SelendroidCapabilities;
 import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidLauncher;
@@ -23,16 +25,15 @@ import com.PayPal.pageobject.NavigationBar;
 import com.PayPal.pageobject.ShopPage;
 import com.PayPal.pageobject.StartPage;
 
-public class LoginTest {
-  private static SelendroidLauncher selendroidServer = null;
-  private static WebDriver driver = null;
-  private static StartPage startPage = null;
-  private static ShopPage shopPage = null;
-  private static NavigationBar navBar = null;
-  private static LoginPage loginPage = null;
-  private static ConfigPage configPage = null;
-  private static LinkFingerPrint linkFingerPrint = null;
-  
+public class LoginTest implements TestConfiguration{
+  private SelendroidLauncher selendroidServer = null;
+  private WebDriver driver = null;
+  private StartPage startPage = null;
+  private ShopPage shopPage = null;
+  private NavigationBar navBar = null;
+  private LoginPage loginPage = null;
+  private ConfigPage configPage = null;
+  private LinkFingerPrint linkFingerPrint = null;
   
   @Test
   public void loginWithUserName() throws InterruptedException {
@@ -50,7 +51,7 @@ public class LoginTest {
 	
 	loginPage = navBar.clickLogin();
 	
-	linkFingerPrint = loginPage.loginWithUserName("kingtest@paypal.com","11111111");
+	linkFingerPrint = loginPage.loginWithUserName(SANDBOXUSER, SANDBOXUSERPSW);
 	
 	shopPage = linkFingerPrint.skipFingerPrint();
 	
@@ -61,7 +62,9 @@ public class LoginTest {
 	Assert.assertEquals("Jin", navBar.getFirstName());
 	
 	Assert.assertEquals("Lu", navBar.getLastName());
+	
   }
+
 
   public void loginWithMobileNumber() throws InterruptedException {
 	shopPage = startPage.proceedLogin();
@@ -93,7 +96,7 @@ public class LoginTest {
   
   @Before
   public void startSelendroidServer() throws Exception {
-	  SelendroidCapabilities caps = new SelendroidCapabilities("com.paypal.android.p2pmobile:5.11.1-RC1");
+	  SelendroidCapabilities caps = new SelendroidCapabilities(APPNAME);
 	  driver = new SelendroidDriver(caps);
 	  
 	  startPage = PageFactory.initElements(driver, StartPage.class);

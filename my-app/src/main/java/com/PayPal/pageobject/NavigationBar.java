@@ -66,6 +66,7 @@ public class NavigationBar<T extends BasePage> extends BasePage {
 		
 		case "wallet":
 			buttonWallet.click();
+			return (T) PageFactory.initElements(driver, WalletPage.class);
 			
 		case "settings":
 			buttonSettings.click();

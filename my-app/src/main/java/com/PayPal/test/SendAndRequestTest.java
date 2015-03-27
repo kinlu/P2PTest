@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import io.selendroid.SelendroidCapabilities;
+import io.selendroid.SelendroidConfiguration;
 import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidLauncher;
 
@@ -24,17 +25,17 @@ import com.PayPal.pageobject.ShopPage;
 import com.PayPal.pageobject.StartPage;
 import com.PayPal.pageobject.Transfer;
 
-public class SendAndRequest {
-	private static SelendroidLauncher selendroidServer = null;
-	private static WebDriver driver = null;
-	private static StartPage startPage = null;
-	private static ShopPage shopPage = null;
-	private static LoginPage loginPage = null;
-	private static ConfigPage configPage = null;
-	private static LinkFingerPrint linkFingerPrint = null;
-	private static Transfer transfer = null;
-	private static NavigationBar navBar = null;
-	private static ActivityPage actPage = null;
+public class SendAndRequestTest implements TestConfiguration {
+	private SelendroidLauncher selendroidServer = null;
+	private WebDriver driver = null;
+	private StartPage startPage = null;
+	private ShopPage shopPage = null;
+	private LoginPage loginPage = null;
+	private ConfigPage configPage = null;
+	private LinkFingerPrint linkFingerPrint = null;
+	private Transfer transfer = null;
+	private NavigationBar navBar = null;
+	private ActivityPage actPage = null;
 	
 	@Test
 	public void SendAUDMoney() throws InterruptedException {
@@ -70,7 +71,7 @@ public class SendAndRequest {
 		Assert.assertTrue(transfer.getSuccessMsg().contains("20"));
 		Assert.assertTrue(transfer.getSuccessMsg().contains("AUD"));
 		
-		transfer.clickDone();
+		transfer = transfer.clickDone();
 		
 		navToActivityPage = (NavigationBar<ActivityPage>) transfer.clickHomeButton();
 		
@@ -119,7 +120,7 @@ public class SendAndRequest {
 		Assert.assertTrue(transfer.getSuccessMsg().contains("20"));
 		Assert.assertTrue(transfer.getSuccessMsg().contains("EUR"));
 		
-		transfer.clickDone();
+		transfer = transfer.clickDone();
 		
 		navToActivityPage = (NavigationBar<ActivityPage>) transfer.clickHomeButton();
 		
@@ -168,7 +169,7 @@ public class SendAndRequest {
 		Assert.assertTrue(transfer.getSuccessMsg().contains("20"));
 		Assert.assertTrue(transfer.getSuccessMsg().contains("HKD"));
 		
-		transfer.clickDone();
+		transfer = transfer.clickDone();
 		
 		navToActivityPage = (NavigationBar<ActivityPage>) transfer.clickHomeButton();
 		
@@ -209,7 +210,7 @@ public class SendAndRequest {
 		Assert.assertTrue(transfer.getSuccessMsg().contains("20"));
 		Assert.assertTrue(transfer.getSuccessMsg().contains("AUD"));
 		
-		transfer.clickDone();
+		transfer = transfer.clickDone();
 		
 		navToActivityPage = (NavigationBar<ActivityPage>) transfer.clickHomeButton();
 		
@@ -250,7 +251,7 @@ public class SendAndRequest {
 		Assert.assertTrue(transfer.getSuccessMsg().contains("20"));
 		Assert.assertTrue(transfer.getSuccessMsg().contains("EUR"));
 		
-		transfer.clickDone();
+		transfer = transfer.clickDone();
 		
 		navToActivityPage = (NavigationBar<ActivityPage>) transfer.clickHomeButton();
 		
@@ -291,7 +292,7 @@ public class SendAndRequest {
 		Assert.assertTrue(transfer.getSuccessMsg().contains("20"));
 		Assert.assertTrue(transfer.getSuccessMsg().contains("HKD"));
 		
-		transfer.clickDone();
+		transfer = transfer.clickDone();
 		
 		navToActivityPage = (NavigationBar<ActivityPage>) transfer.clickHomeButton();
 		
@@ -308,10 +309,16 @@ public class SendAndRequest {
 	
 	@Before
 	public void startSelendroidServer() throws Exception {
-	  SelendroidCapabilities caps = new SelendroidCapabilities("com.paypal.android.p2pmobile:5.11.1-RC1");
-	  driver = new SelendroidDriver(caps);
+		/*
+	    SelendroidConfiguration config = new SelendroidConfiguration();
+	    config.addSupportedApp(APPPATH);
+	    selendroidServer = new SelendroidLauncher(config);
+	    selendroidServer.launchSelendroid();
+		*/
+		SelendroidCapabilities caps = new SelendroidCapabilities(APPNAME);
+		driver = new SelendroidDriver(caps);
 	  
-	  startPage = PageFactory.initElements(driver, StartPage.class);
+		startPage = PageFactory.initElements(driver, StartPage.class);
 	}
 
 	@After
@@ -327,7 +334,6 @@ public class SendAndRequest {
 	public void loginProcess() throws InterruptedException {
 		shopPage = startPage.proceedLogin();
 		
-		
 		navBar = shopPage.clickHomeButton();
 		 
 		configPage = navBar.longclickLogin();
@@ -338,7 +344,7 @@ public class SendAndRequest {
 		
 		loginPage = navBar.clickLogin();
 		
-		linkFingerPrint = loginPage.loginWithUserName("kingtest@paypal.com","11111111");
+		linkFingerPrint = loginPage.loginWithUserName(SANDBOXUSER,SANDBOXUSERPSW);
 		
 		shopPage = linkFingerPrint.skipFingerPrint();
 		

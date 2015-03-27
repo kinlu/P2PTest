@@ -28,9 +28,7 @@ public class LinkFingerPrint extends BasePage{
 		
 		Thread.sleep(3000);
 		
-		if(verifyElementVisibilty(linkFingerPrintTitle)){
-			StaleElementClick(notNowButton);
-		}
+		StaleElementClick(notNowButton);
 		
 		return PageFactory.initElements(driver, ShopPage.class);
 	}
